@@ -1,6 +1,6 @@
 import { ITreeNode } from "./types";
 
-import { CARET_DOWN, CARET_RIGHT, FOLDER_CLOSED, FOLDER_OPEN, NO_CARET } from "./icons";
+import { CARET_DOWN, CARET_RIGHT, FOLDER_CLOSED, ICON_WIDTH } from "./icons";
 
 type NodeFolderViewArgs = {
   node: ITreeNode;
@@ -25,15 +25,33 @@ export class NodeFolderView {
     if (this.node.children?.length > 0) {
       this.node.children.forEach((child) => {
         if (child.type === "folder") {
-          this.children.push(new NodeFolderView({node: child, depth: depth + 1, onClick}));
+          this.children.push(new NodeFolderView({node: child, open: true, depth: depth + 1, onClick}));
         }
       });
     }
   }
 
+  markSelected(selected: boolean) {
+    if (this.dom) {
+      let oldClass = "fa-folder-open";
+      let newClass = "fa-folder-closed";
+      if (selected) {
+        oldClass = newClass;
+        newClass = "fa-folder-open";
+      }
+      const elem = this.dom.querySelector(`.${oldClass}`);
+      elem?.classList?.remove(oldClass);
+      elem?.classList?.add(newClass);
+    }
+  }
+
+  // select a folder
   clickHandler() {
     this.onClick(this);
+  }
 
+  // expand/collapse functionality on caret button
+  toggleHandler() {
     if (this.open) {
       this.hideChildren();
       this.open = false;
@@ -41,7 +59,10 @@ export class NodeFolderView {
       this.show();
       this.open = true;
     }
-    this.render();
+    if (this.dom) {
+      this.dom.querySelector(".caret-btn").innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
+    }
+    //this.render();
   }
 
   show() {
@@ -68,7 +89,17 @@ export class NodeFolderView {
       const listDiv = document.querySelector(".folder-list");
       this.dom = document.createElement("li");
       // make these button for accessibility (keyboard nav)
-      const btn = this.dom.appendChild(document.createElement("button"));
+
+      const caret = this.getCaret();
+      const btn = document.createElement("button");
+      if (caret) {
+        this.dom.appendChild(caret);
+        caret.style.marginLeft = this.getMargin();
+      } else {
+        btn.style.marginLeft = this.getMargin();
+      }
+      this.dom.appendChild(btn);
+      btn.classList.add("folder-btn");
       this.dom.classList.add("directory-row");
       btn.addEventListener("click", this.clickHandler.bind(this));
       listDiv.appendChild(this.dom);
@@ -76,18 +107,26 @@ export class NodeFolderView {
         child.render();
       });
     }
-    this.dom.querySelector("button").innerHTML = `${this.getSpace(this.depth)} ${this.getCaret()} ${this.open ? FOLDER_OPEN : FOLDER_CLOSED} ${this.node.name}`;
+    this.dom.querySelector("button.folder-btn").innerHTML = `${FOLDER_CLOSED} ${this.node.name}`;
   }
 
-  // TODO make this more robust, depth can't be infinite
-  getSpace(depth: number): string {
-    return depth > 0 ? `<i class="icon-space-${depth}"></i>` : "";
-  }
-
-  getCaret() {
-    if (this.node.children?.find((c: ITreeNode) => c.type === "folder")) {
-      return this.open ? CARET_DOWN : CARET_RIGHT;
+  getMargin(): string {
+    let factor = this.depth;
+    // if no children, need to move over another spot to account for missing caret
+    if (!this.node.children?.find((c: ITreeNode) => c.type === "folder")) {
+      factor++;
     }
-    return NO_CARET;
+    return this.depth > 0 ? ICON_WIDTH * factor + "em" : "";
+  }
+
+  getCaret(): HTMLElement {
+    if (this.node.children?.find((c: ITreeNode) => c.type === "folder")) {
+      const caret = document.createElement("button");
+      caret.innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
+      caret.classList.add("caret-btn");
+      caret.addEventListener("click", this.toggleHandler.bind(this));
+      return caret;
+    }
+    return null;
   }
 }

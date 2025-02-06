@@ -4,5 +4,5 @@ export const FILE_ICON = `<i class="fa-regular fa-file fa-fw"></i>`;
 
 export const FOLDER_CLOSED = `<i class="fa-regular fa-folder-closed fa-fw"></i>`;
 export const FOLDER_OPEN = `<i class="fa-regular fa-folder-open fa-fw"></i>`;
-export const NO_CARET = `<i class="no-caret-space"></i>`;
+export const ICON_WIDTH = 1.5;
 

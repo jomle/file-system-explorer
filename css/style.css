@@ -335,16 +335,27 @@ menu.folder-list {
   appearance: none;
   background-color: transparent;
   border: none;
-  width: 100%;
   text-align: left;
   cursor: pointer;
 }
 
-.directory-row:hover {
+.directory-row button.caret-btn {
+  width: 1.5em;
+}
+
+.directory-row button.folder-btn:hover {
   background-color: lightgray;
   cursor: pointer;
 }
 
 .hidden {
   display: none;
+}
+
+.directory-row {
+  display: flex;
+}
+
+.directory-row button.folder-btn {
+  flex-grow: 1;
 }

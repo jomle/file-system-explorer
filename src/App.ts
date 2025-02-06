@@ -12,6 +12,7 @@ export class App {
   async run() {
     const folders = await getFolders();
     this.renderFolders(folders);
+    this.renderHelpText();
   }
 
   renderFolders(folders: ITreeNode[]) {
@@ -26,8 +27,16 @@ export class App {
   }
 
   handleSelect(node: NodeFolderView) {
+    this.selectedNode?.markSelected(false);
     this.selectedNode = node;
+    this.selectedNode.markSelected(true);
     this.renderFiles(this.selectedNode.node);
+  }
+
+  renderHelpText() {
+    const tbody = document.querySelector(".file-table tbody");
+    tbody.replaceChildren();
+    tbody.innerHTML = `<tr><td colspan="4">Please select a folder in the left pane to view files</td>`;
   }
 
   renderFiles(folder: ITreeNode) {
