@@ -1,1 +1,3 @@
-document.getElementById('app').innerHTML = `Hello World!`
+import { App } from "./App";
+
+new App().run();

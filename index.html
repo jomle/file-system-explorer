@@ -10,12 +10,39 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+
 </head>
 
 <body>
 
-  <div id="app">Loading...</div>
-  <script src="bundle.js"></script>
+<div id="app" class="app-container">
+  <div id="left-pane" class="folder-list">
+  </div>
+  <div id="right-pane" class="file-list">
+    <table class="file-table">
+      <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Name</th>
+        <th>Date Modified</th>
+        <th>File Size</th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <template id="node-row">
+      <tr>
+        <td class="file-icon"></td>
+        <td class="file-name"></td>
+        <td class="file-date"></td>
+        <td class="file-size"></td>
+      </tr>
+    </template>
+  </div>
+</div>
+<script src="bundle.js"></script>
 
 </body>
 

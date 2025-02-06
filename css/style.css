@@ -172,9 +172,9 @@ textarea {
 }
 
 @media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
   /* Style adjustments for high resolution devices */
 }
 
@@ -245,3 +245,83 @@ textarea {
   }
 }
 
+/* ==========================================================================
+   End boilerplate
+   ========================================================================== */
+
+.app-container {
+  display: flex;
+  align-items: stretch;
+  height: 99vh;
+}
+
+.folder-list {
+  min-width: 250px;
+  border: 1px solid black;
+  padding: 4px;
+}
+
+.file-list {
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+.file-table {
+  width: 100%;
+
+  th {
+    text-align: left;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  td.file-name {
+    width: auto;
+  }
+
+  td.file-icon {
+    text-align: right;
+    width: 50px;
+  }
+
+  td.file-date {
+    width: 100px;
+  }
+
+  td.file-size {
+    width: 100px;
+    text-align: right;
+  }
+}
+
+.file-list-header {
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    padding: 4px;
+  }
+}
+
+
+.icon-space-1 {
+  width: 1.25em;
+  display: inline-block;
+}
+
+.icon-space-2 {
+  width: 2.5em;
+  display: inline-block;
+}
+
+.icon-space-3 {
+  width: 3.75em;
+  display: inline-block;
+}
+
+.no-caret-space {
+  width: 1.25em;
+  display: inline-block;
+}
