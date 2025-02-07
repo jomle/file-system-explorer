@@ -60,7 +60,9 @@ export class NodeFolderView {
     this.open ? this.show() : this.hideChildren();
 
     if (this.dom) {
-      this.dom.querySelector(".caret-btn").innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
+      const caret = this.dom.querySelector(".caret-btn");
+      caret.innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
+      caret.setAttribute("aria-expanded", this.open.toString());
     }
   }
 
@@ -130,6 +132,7 @@ export class NodeFolderView {
       const caret = document.createElement("button");
       caret.innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
       caret.classList.add("caret-btn");
+      caret.setAttribute("aria-expanded", this.open.toString());
       caret.addEventListener("click", this.toggleHandler.bind(this));
       return caret;
     }

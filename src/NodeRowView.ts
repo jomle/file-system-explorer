@@ -25,11 +25,15 @@ export class NodeRowView {
     if (!this.dom) {
       const template: HTMLTemplateElement = document.getElementById("node-row") as HTMLTemplateElement;
       this.dom = template.content.cloneNode(true) as DocumentFragment;
-      this.dom.querySelector("tr").addEventListener("click", this.handleClick.bind(this));
+      this.dom.querySelector("button").addEventListener("click", this.handleClick.bind(this));
     }
     let td = this.dom.querySelectorAll("td");
     td[0].innerHTML = this.node.type === "folder" ? FOLDER_CLOSED : FILE_ICON;
-    td[1].textContent = this.node.name;
+    if (this.node.type === "folder") {
+      td[1].querySelector("button").textContent = this.node.name;
+    } else {
+      td[1].textContent = this.node.name;
+    }
     td[2].textContent = this.node.modified?.toLocaleDateString();
     // assuming these are in KB, ideally they are bytes and the label is formatted accordingly (e.g. KB, MB, GB)
     td[3].textContent = (this.node.type === "file") ? this.node.size.toString() + " KB" : "";

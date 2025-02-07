@@ -314,7 +314,6 @@ button {
   }
 
   .file-row:hover {
-    cursor: pointer;
     background-color: #ddd;
   }
 }
@@ -333,12 +332,20 @@ menu.folder-list {
   margin: 0;
 }
 
-.directory-row button {
+button {
   appearance: none;
   background-color: transparent;
   border: none;
   text-align: left;
   cursor: pointer;
+}
+
+.file-name-btn {
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .directory-row button.caret-btn {
