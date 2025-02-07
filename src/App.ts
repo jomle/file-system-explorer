@@ -66,7 +66,7 @@ export class App {
   renderHelpText() {
     const tbody = document.querySelector(".file-table tbody");
     tbody.replaceChildren();
-    tbody.innerHTML = `<tr><td colspan="4">Please select a folder in the left pane to view files</td>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="help-text">Please select a folder in the left pane to view files</td>`;
   }
 
   /**
@@ -83,7 +83,7 @@ export class App {
       });
     } else {
       // empty state message
-      tbody.innerHTML = `<tr><td colspan="4">No files found in this folder</td>`;
+      tbody.innerHTML = `<tr><td colspan="4" class="help-text">No files found in this folder</td>`;
     }
   }
 }

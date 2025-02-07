@@ -93,7 +93,7 @@ export class NodeFolderView {
 
   render() {
     if (!this.dom) {
-      const listDiv = document.querySelector(".folder-list");
+      const menuDiv = document.querySelector(".folder-list");
       this.dom = document.createElement("li");
       // make these button for accessibility (keyboard nav)
       const caret = this.getCaret();
@@ -108,7 +108,7 @@ export class NodeFolderView {
       btn.classList.add("folder-btn");
       this.dom.classList.add("directory-row");
       btn.addEventListener("click", this.clickHandler.bind(this));
-      listDiv.appendChild(this.dom);
+      menuDiv.appendChild(this.dom);
       this.children.forEach((child) => {
         child.render();
       });

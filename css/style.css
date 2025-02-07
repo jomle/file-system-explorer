@@ -253,28 +253,42 @@ textarea {
   display: flex;
   align-items: stretch;
   height: 99vh;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.folder-list {
+button {
+  font-size: 1em;
+}
+
+#left-pane {
   min-width: 250px;
-  border: 1px solid black;
+  border: 1px solid #bbb;
   padding: 4px;
+  border-right: none;
 }
 
 .file-list {
-  border: 1px solid black;
+  border: 1px solid #bbb;
   flex-grow: 1;
 }
 
 .file-table {
   width: 100%;
+  border-collapse: collapse;
 
   th {
     text-align: left;
+    color: #808080;
+    border-bottom: 2px solid #bbb;
 
     &:last-child {
       text-align: right;
     }
+  }
+
+  td, th {
+    padding: 4px;
+    font-weight: normal;
   }
 
   td.file-name {
@@ -293,6 +307,10 @@ textarea {
   td.file-size {
     width: 100px;
     text-align: right;
+  }
+
+  td.help-text {
+    padding: 8px;
   }
 
   .file-row:hover {
@@ -328,7 +346,7 @@ menu.folder-list {
 }
 
 .directory-row button.folder-btn:hover {
-  background-color: lightgray;
+  background-color: #ddd;
   cursor: pointer;
 }
 
