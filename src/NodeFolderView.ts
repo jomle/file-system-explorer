@@ -45,38 +45,45 @@ export class NodeFolderView {
     }
   }
 
-  // select a folder
+  /**
+   * Calls the onClick method passing this instance
+   */
   clickHandler() {
     this.onClick(this);
   }
 
-  // expand/collapse functionality on caret button
+  /**
+   * Toggles the expand/collapse functionality.
+   */
   toggleHandler() {
-    if (this.open) {
-      this.hideChildren();
-      this.open = false;
-    } else {
-      this.show();
-      this.open = true;
-    }
+    this.open = !this.open;
+    this.open ? this.show() : this.hideChildren();
+
     if (this.dom) {
       this.dom.querySelector(".caret-btn").innerHTML = this.open ? CARET_DOWN : CARET_RIGHT;
     }
-    //this.render();
   }
 
+  /**
+   * Removes the "hidden" class and calls the show method on children
+   * if this node is open
+   */
   show() {
     if (this.dom) {
       this.dom.classList?.remove("hidden");
-      this.children?.forEach((child) => {
-        child.show();
-      });
+      if (this.open) {
+        this.children?.forEach((child) => {
+          child.show();
+        });
+      }
     }
   }
 
+  /**
+   * Adds the "hidden" class and calls the hideChildren method on children
+   */
   hideChildren() {
     if (this.dom) {
-//      this.dom.classList.add("hidden");
       this.children?.forEach((child) => {
         child.dom?.classList?.add("hidden");
         child.hideChildren();
@@ -89,7 +96,6 @@ export class NodeFolderView {
       const listDiv = document.querySelector(".folder-list");
       this.dom = document.createElement("li");
       // make these button for accessibility (keyboard nav)
-
       const caret = this.getCaret();
       const btn = document.createElement("button");
       if (caret) {
