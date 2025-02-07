@@ -14,7 +14,13 @@ export const MOCK_FILE_SYSTEM: ITreeNode[] = [{
       type: "folder",
       name: "workspace",
       modified: new Date("2023-11-15T03:24:00"),
-      size: 0
+      size: 0,
+      children: [{
+        type: "file",
+        name: "code.js",
+        modified: new Date("2024-12-17T03:24:00"),
+        size: 14
+      }]
     },
       {
         type: "file",
@@ -58,7 +64,18 @@ export const MOCK_FILE_SYSTEM: ITreeNode[] = [{
       type: "folder",
       name: "System",
       modified: new Date("2021-12-17T03:24:00"),
-      size: 0
+      size: 0,
+      children: [{
+        type: "folder",
+        name: "Applications",
+        modified: new Date("2021-12-17T03:24:00"),
+        size: 0
+      }, {
+        type: "folder",
+        name: "Library",
+        modified: new Date("2021-12-17T03:24:00"),
+        size: 0
+      }]
     }, {
       type: "file",
       name: "soup-recipes.csv",

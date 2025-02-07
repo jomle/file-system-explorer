@@ -294,6 +294,11 @@ textarea {
     width: 100px;
     text-align: right;
   }
+
+  .file-row:hover {
+    cursor: pointer;
+    background-color: #ddd;
+  }
 }
 
 .file-list-header {
