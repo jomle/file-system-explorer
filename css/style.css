@@ -305,27 +305,6 @@ textarea {
   }
 }
 
-
-.icon-space-1 {
-  width: 1.25em;
-  display: inline-block;
-}
-
-.icon-space-2 {
-  width: 2.5em;
-  display: inline-block;
-}
-
-.icon-space-3 {
-  width: 3.75em;
-  display: inline-block;
-}
-
-.no-caret-space {
-  width: 1.25em;
-  display: inline-block;
-}
-
 menu.folder-list {
   list-style-type: none;
   margin: 0;
