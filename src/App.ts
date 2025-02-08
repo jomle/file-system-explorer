@@ -3,6 +3,7 @@ import { NodeRowView } from "./NodeRowView";
 import { getFolders } from "./utilities";
 import { ITreeNode } from "./types";
 import { NodeFolderView } from "./NodeFolderView";
+import { FETCH_ERROR, NO_FILES_FOUND, NO_FOLDER_SELECTED } from "./text";
 
 export class App {
 
@@ -14,9 +15,14 @@ export class App {
    * left pane and help text in the right pane.
    */
   async run() {
-    const folders = await getFolders();
-    this.renderFolders(folders);
-    this.renderHelpText();
+    try {
+      const folders = await getFolders();
+      this.renderFolders(folders);
+      this.renderHelpText(NO_FOLDER_SELECTED);
+    } catch (error) {
+      console.error("Error fetching directory information", error);
+      this.renderHelpText(FETCH_ERROR);
+    }
   }
 
   /**
@@ -52,7 +58,6 @@ export class App {
    * @param nrv - NodeRowView that was selected
    */
   handleSelectRightPane(nrv: NodeRowView) {
-    console.log(nrv);
     const {name, type} = nrv.node;
     if (type === "folder") {
       const selected = this.selectedNode.children.find((nfv) => nfv.node.name === name);
@@ -63,10 +68,10 @@ export class App {
   /**
    * Renders help text in the right pane telling the user to select a folder in the left pane
    */
-  renderHelpText() {
+  renderHelpText(text: string) {
     const tbody = document.querySelector(".file-table tbody");
     tbody.replaceChildren();
-    tbody.innerHTML = `<tr><td colspan="4" class="help-text">Please select a folder in the left pane to view files</td>`;
+    tbody.innerHTML = `<tr><td colspan="4" class="help-text">${text}</td>`;
   }
 
   /**
@@ -75,15 +80,15 @@ export class App {
    * @param folder - ITreeNode to display children for
    */
   renderFiles(folder: ITreeNode) {
-    const tbody = document.querySelector(".file-table tbody");
-    tbody.replaceChildren();
     if (folder.children?.length > 0) {
+      const tbody = document.querySelector(".file-table tbody");
+      tbody.replaceChildren();
       folder.children?.forEach((f) => {
         new NodeRowView({node: f, onClick: this.handleSelectRightPane.bind(this)}).render();
       });
     } else {
       // empty state message
-      tbody.innerHTML = `<tr><td colspan="4" class="help-text">No files found in this folder</td>`;
+      this.renderHelpText(NO_FILES_FOUND);
     }
   }
 }
