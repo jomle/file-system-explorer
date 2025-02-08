@@ -46,7 +46,14 @@ export class App {
    * @param nfv - NodeFolderView that was selected
    */
   handleSelect(nfv: NodeFolderView) {
-    this.selectedNode?.markSelected(false);
+    if (this.selectedNode) {
+      this.selectedNode.markSelected(false);
+      // if the selected node isn't open, open it because a child
+      // is now selected and you wouldn't see it in the left pane
+      if (!this.selectedNode.open) {
+        this.selectedNode.handleOpenToggle();
+      }
+    }
     this.selectedNode = nfv;
     this.selectedNode.markSelected(true);
     this.renderFiles(this.selectedNode.node);

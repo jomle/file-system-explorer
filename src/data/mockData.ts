@@ -82,4 +82,20 @@ export const MOCK_FILE_SYSTEM: ITreeNode[] = [{
       modified: new Date("2022-11-15T03:24:00"),
       size: 55
     }]
+}, {
+  type: "folder",
+  name: "Goats",
+  modified: new Date("2024-04-22T11:18:00"),
+  size: 0,
+  children: [{
+    type: "file",
+    name: "sillygoats.jpg",
+    modified: new Date("2024-04-22T11:18:00"),
+    size: 550
+  }, {
+    type: "file",
+    name: "goatmeme.jpg",
+    modified: new Date("2024-04-22T11:18:00"),
+    size: 550
+  }]
 }];
