@@ -132,7 +132,6 @@ test("renderFiles should create NodeRowViews for each children of given folder",
 });
 
 test("renderFiles should clear tbody before rendering", () => {
-  const nrvSpy = jest.spyOn(NodeRowView.prototype, "render");
   const app = new App();
   app.renderFiles(MIXED_NODES[0]);
   expect(document.querySelectorAll(".file-table tbody tr").length).toBe(MIXED_NODES[0].children.length);
