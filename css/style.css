@@ -265,14 +265,17 @@ button {
 
 #left-pane {
   min-width: 250px;
+  max-width: 30%;
   border: 1px solid #bbb;
   padding: 4px;
   border-right: none;
+  overflow: auto;
 }
 
 .file-list {
   border: 1px solid #bbb;
   flex-grow: 1;
+  overflow: auto;
 }
 
 .file-table {
@@ -370,4 +373,5 @@ button {
 
 .directory-row button.folder-btn {
   flex-grow: 1;
+  white-space: nowrap;
 }
