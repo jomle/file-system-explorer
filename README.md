@@ -23,7 +23,7 @@ To run tests:
 
 ```
 npm test
-npm test:coverage
+npm run test:coverage
 ```
 
 ## Notes
