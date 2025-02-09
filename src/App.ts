@@ -20,20 +20,19 @@ export class App {
       this.renderFolders(folders);
       this.renderHelpText(NO_FOLDER_SELECTED);
     } catch (error) {
-      console.error("Error fetching directory information", error);
       this.renderHelpText(FETCH_ERROR);
     }
   }
 
   /**
    * Renders given folders in the left pane
-   * @param folders - Array of ITreeNodes to render folders for
+   * @param nodes - Array of ITreeNodes to render folders for
    */
-  renderFolders(folders: ITreeNode[]) {
+  renderFolders(nodes: ITreeNode[]) {
     this.allFolderViews = [];
-    folders.forEach(f => {
-      if (f.type === "folder") {
-        const view = new NodeFolderView({node: f, open: true, onClick: this.handleSelect.bind(this)});
+    nodes.forEach((node) => {
+      if (node.type === "folder") {
+        const view = new NodeFolderView({node, open: true, onClick: this.handleSelect.bind(this)});
         this.allFolderViews.push(view);
         view.render();
       }
@@ -66,9 +65,9 @@ export class App {
         if (!this.selectedNode.open) {
           this.selectedNode.handleOpenToggle();
         }
+        const selected = this.selectedNode.children.find((nfv) => nfv.node.name === name);
+        this.handleSelect(selected);
       }
-      const selected = this.selectedNode.children.find((nfv) => nfv.node.name === name);
-      this.handleSelect(selected);
     }
   }
 
