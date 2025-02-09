@@ -46,14 +46,7 @@ export class App {
    * @param nfv - NodeFolderView that was selected
    */
   handleSelect(nfv: NodeFolderView) {
-    if (this.selectedNode) {
-      this.selectedNode.markSelected(false);
-      // if the selected node isn't open, open it because a child
-      // is now selected and you wouldn't see it in the left pane
-      if (!this.selectedNode.open) {
-        this.selectedNode.handleOpenToggle();
-      }
-    }
+    this.selectedNode?.markSelected(false);
     this.selectedNode = nfv;
     this.selectedNode.markSelected(true);
     this.renderFiles(this.selectedNode.node);
@@ -67,6 +60,13 @@ export class App {
   handleSelectRightPane(nrv: NodeRowView) {
     const {name, type} = nrv.node;
     if (type === "folder") {
+      if (this.selectedNode) {
+        // if the selected node isn't open, open it because a child
+        // is now selected and you wouldn't see it in the left pane
+        if (!this.selectedNode.open) {
+          this.selectedNode.handleOpenToggle();
+        }
+      }
       const selected = this.selectedNode.children.find((nfv) => nfv.node.name === name);
       this.handleSelect(selected);
     }
